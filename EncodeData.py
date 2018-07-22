@@ -5,18 +5,23 @@ import pandas as pd
 input_file = "adult.data"
 df = pd.read_csv(input_file, header=0)
 
-work_class_map = {"Private": 0, "Self-emp-not-inc": 1, "Self-emp-inc": 2, "Federal-gov": 3, "Local-gov": 4,
-                  "State-gov": 5, "Without-pay": 6, "Never-worked": 7}
+work_class_map = {"Private": 2, "Self-emp-not-inc": 4, "Self-emp-inc": 7,
+                  "Federal-gov": 6, "Local-gov": 5,
+                  "State-gov": 3, "Without-pay": 1, "Never-worked": 0,
+                  "?": -1}
 
-marital_status_map = {"Married-civ-spouse": 0, "Divorced": 1, "Never-married": 2, "Separated": 3, "Widowed": 4,
+marital_status_map = {"Married-civ-spouse": 0, "Divorced": 1,
+                      "Never-married": 2, "Separated": 3, "Widowed": 4,
                       "Married-spouse-absent": 5, "Married-AF-spouse": 6}
 
-occupation_map = {"Tech-support": 0, "Craft-repair": 1, "Other-service": 2, "Sales": 3, "Exec-managerial": 4,
-                  "Prof-specialty": 5, "Handlers-cleaners": 6, "Machine-op-inspct": 7, "Adm-clerical": 8,
-                  "Farming-fishing": 9, "Transport-moving": 10, "Priv-house-serv": 11, "Protective-serv": 12,
-                  "Armed-Forces": 13}
+occupation_map = {"Tech-support": 10, "Craft-repair": 8, "Other-service": 1,
+                  "Sales": 9, "Exec-managerial": 13,
+                  "Prof-specialty": 12, "Handlers-cleaners": 2, "Machine-op-inspct": 5, "Adm-clerical": 6,
+                  "Farming-fishing": 4, "Transport-moving": 7, "Priv-house-serv": 0, "Protective-serv": 11,
+                  "Armed-Forces": 3, "?": -1}
 
-relationship_map = {"Wife": 0, "Own-child": 1, "Husband": 2, "Not-in-family": 3, "Other-relative": 4, "Unmarried": 5}
+relationship_map = {"Wife": 0, "Own-child": 1, "Husband": 2,
+                    "Not-in-family": 3, "Other-relative": 4, "Unmarried": 5}
 
 race_map = {"White": 0, "Asian-Pac-Islander": 1, "Amer-Indian-Eskimo": 2, "Other": 3, "Black": 4}
 
@@ -56,6 +61,3 @@ df = df._get_numeric_data()
 
 # Save a new encoded version
 df.to_csv("adult_encoded.data")
-
-
-
