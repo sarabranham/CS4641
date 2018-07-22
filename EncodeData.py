@@ -14,11 +14,18 @@ marital_status_map = {"Married-civ-spouse": 0, "Divorced": 1,
                       "Never-married": 2, "Separated": 3, "Widowed": 4,
                       "Married-spouse-absent": 5, "Married-AF-spouse": 6}
 
+<<<<<<< HEAD
 occupation_map = {"Tech-support": 10, "Craft-repair": 8, "Other-service": 1,
                   "Sales": 9, "Exec-managerial": 13,
                   "Prof-specialty": 12, "Handlers-cleaners": 2, "Machine-op-inspct": 5, "Adm-clerical": 6,
                   "Farming-fishing": 4, "Transport-moving": 7, "Priv-house-serv": 0, "Protective-serv": 11,
                   "Armed-Forces": 3, "?": -1}
+=======
+occupation_map = {"?": -1, "Tech-support": 0, "Craft-repair": 1, "Other-service": 2, "Sales": 3, "Exec-managerial": 4,
+                  "Prof-specialty": 5, "Handlers-cleaners": 6, "Machine-op-inspct": 7, "Adm-clerical": 8,
+                  "Farming-fishing": 9, "Transport-moving": 10, "Priv-house-serv": 11, "Protective-serv": 12,
+                  "Armed-Forces": 13}
+>>>>>>> f48bd7da2bb9f93c556ea18da1e1a9cc71f3c3a5
 
 relationship_map = {"Wife": 0, "Own-child": 1, "Husband": 2,
                     "Not-in-family": 3, "Other-relative": 4, "Unmarried": 5}
@@ -27,7 +34,7 @@ race_map = {"White": 0, "Asian-Pac-Islander": 1, "Amer-Indian-Eskimo": 2, "Other
 
 sex_map = {"Female": 0, "Male": 1}
 
-native_country_map = {"United-States": 0, "Cambodia": 1, "England": 2, "Puerto-Rico": 3, "Canada": 4, "Germany": 5,
+native_country_map = {"?": -1, "United-States": 0, "Cambodia": 1, "England": 2, "Puerto-Rico": 3, "Canada": 4, "Germany": 5,
                   "Outlying-US(Guam-USVI-etc)": 6, "India": 7, "Japan": 8, "Greece": 9, "South": 10, "China": 11,
                   "Cuba": 12, "Iran": 13, "Honduras": 14, "Philippines": 15, "Italy": 16, "Poland": 17, "Jamaica": 18,
                   "Vietnam": 19, "Mexico": 20, "Portugal": 21, "Ireland": 22, "France": 23, "Dominican-Republic": 24,
@@ -44,7 +51,6 @@ def coding(col, codeDict):
     for key, value in codeDict.items():
         colCoded.replace(key, value, inplace=True)
     return colCoded
-
 
 # Actually encode adult.data
 df["workclass"] = coding(df["workclass"], work_class_map)
