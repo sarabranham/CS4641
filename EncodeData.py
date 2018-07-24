@@ -14,18 +14,16 @@ marital_status_map = {"Married-civ-spouse": 0, "Divorced": 1,
                       "Never-married": 2, "Separated": 3, "Widowed": 4,
                       "Married-spouse-absent": 5, "Married-AF-spouse": 6}
 
-<<<<<<< HEAD
 occupation_map = {"Tech-support": 10, "Craft-repair": 8, "Other-service": 1,
                   "Sales": 9, "Exec-managerial": 13,
                   "Prof-specialty": 12, "Handlers-cleaners": 2, "Machine-op-inspct": 5, "Adm-clerical": 6,
                   "Farming-fishing": 4, "Transport-moving": 7, "Priv-house-serv": 0, "Protective-serv": 11,
                   "Armed-Forces": 3, "?": -1}
-=======
+
 occupation_map = {"?": -1, "Tech-support": 0, "Craft-repair": 1, "Other-service": 2, "Sales": 3, "Exec-managerial": 4,
                   "Prof-specialty": 5, "Handlers-cleaners": 6, "Machine-op-inspct": 7, "Adm-clerical": 8,
                   "Farming-fishing": 9, "Transport-moving": 10, "Priv-house-serv": 11, "Protective-serv": 12,
                   "Armed-Forces": 13}
->>>>>>> f48bd7da2bb9f93c556ea18da1e1a9cc71f3c3a5
 
 relationship_map = {"Wife": 0, "Own-child": 1, "Husband": 2,
                     "Not-in-family": 3, "Other-relative": 4, "Unmarried": 5}
@@ -43,7 +41,6 @@ native_country_map = {"?": -1, "United-States": 0, "Cambodia": 1, "England": 2, 
                   "Trinadad&Tobago": 37, "Peru": 38, "Hong": 39, "Holand-Netherlands": 40}
 
 salary_map = {"<=50K": 0, ">50K": 1}
-
 
 # Helper function to encode data
 def coding(col, codeDict):
