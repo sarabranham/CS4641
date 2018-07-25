@@ -1,18 +1,26 @@
 import pandas as pd
+from sklearn.utils import shuffle
 
 # Read in our dataset
 # It's sensitive to spaces in the CSV, so no spaces allowed
 input_file = "adult.data"
 df = pd.read_csv(input_file, header=0)
 
+age_map = {"v0": 0, "v1": 1, "v2": 3, "v3": 3}
+fnlwgt_map = {"v0": 0, "v1": 1, "v2": 3, "v3": 3}
+education_num_map = {"v0": 0, "v1": 1, "v2": 3, "v3": 3}
+capital_gain_map = {"v0": 0, "v3": 3}
+capital_loss_map = {"v0": 0, "v3": 3}
+hours_per_week_map = {"v0": 0, "v2": 2, "v3": 3}
+
 work_class_map = {"Private": 2, "Self-emp-not-inc": 4, "Self-emp-inc": 7,
                   "Federal-gov": 6, "Local-gov": 5,
-                  "State-gov": 3, "Without-pay": 1, "Never-worked": 0,
+                  "State-gov": 3, "Pool": 0,
                   "?": -1}
 
 marital_status_map = {"Married-civ-spouse": 0, "Divorced": 1,
                       "Never-married": 2, "Separated": 3, "Widowed": 4,
-                      "Married-spouse-absent": 5, "Married-AF-spouse": 6}
+                      "Married-spouse-absent": 5, "Pool": 6}
 
 occupation_map = {"Tech-support": 10, "Craft-repair": 8, "Other-service": 1,
                   "Sales": 9, "Exec-managerial": 13,
@@ -32,15 +40,8 @@ race_map = {"White": 0, "Asian-Pac-Islander": 1, "Amer-Indian-Eskimo": 2, "Other
 
 sex_map = {"Female": 0, "Male": 1}
 
-native_country_map = {"?": -1, "United-States": 0, "Cambodia": 1, "England": 2, "Puerto-Rico": 3, "Canada": 4, "Germany": 5,
-                  "Outlying-US(Guam-USVI-etc)": 6, "India": 7, "Japan": 8, "Greece": 9, "South": 10, "China": 11,
-                  "Cuba": 12, "Iran": 13, "Honduras": 14, "Philippines": 15, "Italy": 16, "Poland": 17, "Jamaica": 18,
-                  "Vietnam": 19, "Mexico": 20, "Portugal": 21, "Ireland": 22, "France": 23, "Dominican-Republic": 24,
-                  "Laos": 25, "Ecuador": 26, "Taiwan": 27, "Haiti": 28, "Columbia": 29, "Hungary": 30, "Guatemala": 31,
-                  "Nicaragua": 32, "Scotland": 33, "Thailand": 34, "Yugoslavia": 35, "El-Salvador": 36,
-                  "Trinadad&Tobago": 37, "Peru": 38, "Hong": 39, "Holand-Netherlands": 40}
-
-salary_map = {"<=50K": 0, ">50K": 1}
+native_country_map = {"Canada":0,"Dominican-Republic":1,"Italy":2,"Cuba":3,"Guatemala":4,"China":5,"Germany":6,"Poland":7,"Philippines":8,"Vietnam":9,"South":10,"Jamaica":11,"England":12,"Mexico":13,"El-Salvador":14,"India":15,"Puerto-Rico":16,"United-States":17,"Japan":18,"Taiwan":19,"Pool":20,"Columbia":21}
+salary_map = {"'<=50K'": 0, "''>50K'": 1}
 
 # Helper function to encode data
 def coding(col, codeDict):
@@ -50,6 +51,12 @@ def coding(col, codeDict):
     return colCoded
 
 # Actually encode adult.data
+df["age"] = coding(df["age"], age_map)
+df["fnlwgt"] = coding(df["fnlwgt"], fnlwgt_map)
+df["education-num"] = coding(df["education-num"], education_num_map)
+df["capital-gain"] = coding(df["capital-gain"], capital_gain_map)
+df["capital-loss"] = coding(df["capital-loss"], capital_loss_map)
+df["hours-per-week"] = coding(df["hours-per-week"], hours_per_week_map)
 df["workclass"] = coding(df["workclass"], work_class_map)
 df["marital-status"] = coding(df["marital-status"], marital_status_map)
 df["occupation"] = coding(df["occupation"], occupation_map)
@@ -60,7 +67,17 @@ df["native-country"] = coding(df["native-country"], native_country_map)
 df["salary"] = coding(df["salary"], salary_map)
 
 # Filter out rows that aren't numeric (just Education for right now)
-df = df._get_numeric_data()
-
+df = df[['age','workclass','fnlwgt','education-num','marital-status','occupation','relationship','capital-gain','race','capital-loss','hours-per-week','native-country','sex','salary']]
+print df.keys()
 # Save a new encoded version
-df.to_csv("adult_encoded.data")
+df.to_csv("adult_encoded.data", sep=" ", header=None, index=False)
+
+df = shuffle(df)
+totalSize = len(df)
+folds = 10
+testSize = totalSize / folds
+df_train = df[0:testSize]
+df_test = df[testSize:]
+
+df_train.to_csv("adult_encoded_train.data", sep=" ", header=None, index=False)
+df_test.to_csv("adult_encoded_test.data", sep=" ", header=None, index=False)

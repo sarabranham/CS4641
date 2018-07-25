@@ -28,7 +28,7 @@ print "Debug: X Testing Set Shape:" + str(X_test.shape)
 print "Debug: y Testing Set Shape:" + str(y_test.shape)
 
 # Create our classifier
-clf = MLPClassifier(solver='adam', alpha=1e-5, hidden_layer_sizes=(12, 2), random_state=None)
+clf = MLPClassifier(solver='adam', alpha=1e-5, hidden_layer_sizes=(10,), random_state=None)
 
 # Train with the training data
 clf.fit(X_train, np.ravel(y_train))
